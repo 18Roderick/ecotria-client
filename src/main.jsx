@@ -1,13 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import axios from "axios";
-
-import App from "./App";
+import EcotriaRoutes from "./features/EcotriaRoutes";
 
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
-		<App></App>
+		<EcotriaRoutes />
 	</React.StrictMode>
 );
