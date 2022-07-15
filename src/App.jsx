@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
 import { auth } from "./services";
+console.log(import.meta.env);
 
 export default function App() {
 	useEffect(() => {
