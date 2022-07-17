@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../../pages/Home";
 import App from "../../App";
+import Auth from "../../pages/Auth";
 import { AuthProvider } from "../../context/ContextAuth";
 
 const EcotriaRoutes = () => {
@@ -11,7 +12,7 @@ const EcotriaRoutes = () => {
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
           </Route>
-          <Route path="auth" element={<div>Auth</div>}>
+          <Route path="auth" element={<Auth />}>
             <Route path="login" element={<div>Login</div>} />
             <Route path="register" element={<div>Register</div>} />
           </Route>

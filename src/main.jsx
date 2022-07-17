@@ -4,8 +4,6 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import EcotriaRoutes from "./features/EcotriaRoutes";
 
-import "./index.css";
-
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(

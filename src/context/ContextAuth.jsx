@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Navigate, useLocation } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 import {
   setStorage,
   removeSessionToken,
@@ -13,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [token, setToken] = useState(getSessionToken() ?? null);
   const [isAuth, setAuth] = useState(!!token ?? false);
-
+  const [user, setUser] = useState(token ? jwtDecode(token) : null);
   const login = (tk) => {
     if (tk) {
       setStorage(tk);
@@ -32,6 +33,7 @@ export const AuthProvider = ({ children }) => {
   const value = {
     token: token,
     isAuth: isAuth,
+    user,
     login,
     logOut,
   };
