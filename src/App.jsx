@@ -1,16 +1,8 @@
 import { useEffect } from "react";
-
-import { auth } from "./services";
-console.log(import.meta.env);
-
+import Header from "./components/Header";
 export default function App() {
-	useEffect(() => {
-		auth
-			.signIn({})
-			.then((data) => {
-				console.log(data);
-			})
-			.catch(console.info);
-	}, []);
-	return <div>App</div>;
+  useEffect(() => {
+    console.log("una vez", Date.now());
+  }, []);
+  return <Header />;
 }

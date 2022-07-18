@@ -1,4 +1,3 @@
-import axios from "axios";
 import { axiosInstance } from "../utils";
 
 const api = axiosInstance.default;
@@ -11,7 +10,7 @@ const api = axiosInstance.default;
  * @returns {Promise<AxiosResponse<any>>}
  */
 export const signIn = ({ email, password }) => {
-	return api.post("/user-login", { email, password });
+  return api.post("/user-login", { email, password });
 };
 
 /**
