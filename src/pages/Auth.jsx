@@ -2,7 +2,6 @@ import React, { Fragment, useId } from "react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const rememberId = useId();
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("submit");
@@ -46,10 +45,8 @@ const Login = () => {
                     <i className="font-sm ti-lock text-grey-500 pe-0"></i>
                   </div>
                   <div className="form-check text-left mb-3">
-                    <input type="checkbox" className="form-check-input mt-2" id={rememberId} />
-                    <label className="form-check-label font-xsss text-grey-500" htmlFor={rememberId}>
-                      Recordarme
-                    </label>
+                    <input type="checkbox" className="form-check-input mt-2" />
+                    <label className="form-check-label font-xsss text-grey-500">Recordarme</label>
                     <a href="/forgot" className="fw-600 font-xsss text-grey-700 mt-1 float-right">
                       Olvidaste tu contraseña?
                     </a>
@@ -68,9 +65,9 @@ const Login = () => {
                   </div>
                   <h6 className="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">
                     Ya tienes cuenta?
-                    <a href="/register" className="fw-700 ms-1">
+                    <Link to="/auth/register" className="fw-700 ms-1">
                       Registrarme
-                    </a>
+                    </Link>
                   </h6>
                 </div>
               </div>
