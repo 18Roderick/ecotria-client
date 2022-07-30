@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "../../pages/Home";
+import Home from "../../pages/Home.page";
 import App from "../../App";
-import Auth from "../../pages/Auth";
+import Auth from "../../pages/Auth.page";
 import SignUpPage from "../../pages/SignUp.page";
 
 import { AuthProvider } from "../../context/ContextAuth";

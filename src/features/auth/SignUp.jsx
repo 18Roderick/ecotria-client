@@ -43,6 +43,7 @@ const SignUp = () => {
   const navigation = useNavigate();
 
   const onSubmit = (data) => {
+    mutate.mutate({});
     console.log(data);
   };
 
