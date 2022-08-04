@@ -1,5 +1,6 @@
-import React, { Fragment, useId } from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
+import SignIn from "../features/auth/SignIn";
 
 const Login = () => {
   const handleSubmit = (e) => {
@@ -27,49 +28,7 @@ const Login = () => {
             <div className="card shadow-none border-0 ms-auto me-auto login-card">
               <div className="card-body rounded-0 text-left">
                 <h2 className="fw-700 display1-size display2-md-size mb-3 text-center">Iniciar Sesión</h2>
-                <form onSubmit={handleSubmit}>
-                  <div className="form-group icon-input mb-3">
-                    <i className="font-sm ti-email text-grey-500 pe-0"></i>
-                    <input
-                      type="text"
-                      className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                      placeholder="Tu correo electrónico"
-                    />
-                  </div>
-                  <div className="form-group icon-input mb-1">
-                    <input
-                      type="Password"
-                      className="style2-input ps-5 form-control text-grey-900 font-xss ls-3"
-                      placeholder="Contraseña"
-                    />
-                    <i className="font-sm ti-lock text-grey-500 pe-0"></i>
-                  </div>
-                  <div className="form-check text-left mb-3">
-                    <input type="checkbox" className="form-check-input mt-2" />
-                    <label className="form-check-label font-xsss text-grey-500">Recordarme</label>
-                    <a href="/forgot" className="fw-600 font-xsss text-grey-700 mt-1 float-right">
-                      Olvidaste tu contraseña?
-                    </a>
-                  </div>
-                </form>
-
-                <div className="col-sm-12 p-0 text-left">
-                  <div className="form-group mb-1">
-                    <button
-                      href="/login"
-                      type="submit"
-                      className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 "
-                    >
-                      Login
-                    </button>
-                  </div>
-                  <h6 className="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">
-                    Ya tienes cuenta?
-                    <Link to="/auth/register" className="fw-700 ms-1">
-                      Registrarme
-                    </Link>
-                  </h6>
-                </div>
+                <SignIn />
               </div>
             </div>
           </div>

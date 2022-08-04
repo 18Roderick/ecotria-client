@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import {
   setStorage,
@@ -11,7 +11,6 @@ import {
 const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
-  const navigate = useNavigate();
   const [token, setToken] = useState(getSessionToken() ?? null);
   const [isAuth, setAuth] = useState(!!token ?? false);
   const [user, setUser] = useState(token ? jwtDecode(token) : null);
@@ -20,6 +19,7 @@ export const AuthProvider = ({ children }) => {
       setStorage(tk);
       setSessionToken(tk);
       setToken(tk);
+      setUser(jwtDecode(tk));
       setAuth(true);
     }
   };
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
     token: token,
     isAuth: isAuth,
     user,
-    login,
+    setAuth: login,
     logOut,
   };
 
@@ -48,7 +48,7 @@ export const useAuth = () => {
 export const PrivateRoute = ({ children }) => {
   let auth = useAuth();
   let location = useLocation();
-
+  console.log(auth);
   if (!auth.isAuth) {
     return <Navigate to="/auth/login" state={{ from: location }} replace />;
   }

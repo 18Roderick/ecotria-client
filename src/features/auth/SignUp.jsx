@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -9,8 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
-import InputGroup from "react-bootstrap/InputGroup";
-import Row from "react-bootstrap/Row";
+
+import { useAuth } from "../../context/ContextAuth";
 
 import * as api from "../../services";
 
@@ -18,32 +17,45 @@ const userSchema = yup.object({
   nombre: yup.string().required("Nombre es requerido"),
   apellido: yup.string().required("Apellido es requerido"),
   email: yup.string().email().required("Correo electrónico Valido es requerido"),
-  password: yup
+  contrasena: yup
     .string()
     .required("Contraseña es requerida")
     .min(6, "Contraseña debe tener al menos 6 caracteres")
     .max(20, "Contraseña debe tener máximo 20 caracteres"),
-  password2: yup
+  contrasena2: yup
     .string()
     .required("Contraseña es requerida")
-    .oneOf([yup.ref("password"), null], "Contraseñas no coinciden"),
+    .oneOf([yup.ref("contrasena"), null], "Contraseñas no coinciden"),
 });
 
 //TODO - agregar términos y condiciones
 
 const SignUp = () => {
+  const navigation = useNavigate();
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, dirtyFields, touchedFields },
+    formState: { errors },
   } = useForm({ resolver: yupResolver(userSchema) });
 
-  const mutate = useMutation(api.auth.signUp);
+  const { login } = useAuth();
 
-  const navigation = useNavigate();
+  const onSuccess = (data) => {
+    login(data.token);
+    navigation("/");
+  };
+
+  const onFailure = (errors) => {
+    console.log(errors);
+  };
+
+  const mutate = useMutation(api.auth.signUp, {
+    onError: onFailure,
+    onSuccess: onSuccess,
+  });
 
   const onSubmit = (data) => {
-    mutate.mutate({});
+    mutate.mutate(data);
     console.log(data);
   };
 
@@ -109,13 +121,13 @@ const SignUp = () => {
             <Form.Control
               type="password"
               placeholder="contraseña"
-              name="password"
-              {...register("password")}
-              isInvalid={!!errors.password?.message}
+              name="contrasena"
+              {...register("contrasena")}
+              isInvalid={!!errors.contrasena?.message}
             />
 
-            <Form.Control.Feedback type={errors.password ? "invalid" : ""}>
-              {errors.password?.message}
+            <Form.Control.Feedback type={errors.contrasena ? "invalid" : ""}>
+              {errors.contrasena?.message}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -126,13 +138,13 @@ const SignUp = () => {
             <Form.Control
               type="password"
               placeholder="contraseña"
-              name="password2"
-              {...register("password2")}
-              isInvalid={!!errors.password2?.message}
+              name="contrasena2"
+              {...register("contrasena2")}
+              isInvalid={!!errors.contrasena2?.message}
             />
 
-            <Form.Control.Feedback type={errors.password ? "invalid" : ""}>
-              {errors.password2?.message}
+            <Form.Control.Feedback type={errors.contrasena2 ? "invalid" : ""}>
+              {errors.contrasena2?.message}
             </Form.Control.Feedback>
           </Form.Group>
 
