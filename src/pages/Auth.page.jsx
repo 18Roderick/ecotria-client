@@ -3,14 +3,9 @@ import { Link } from "react-router-dom";
 import SignIn from "../features/auth/SignIn";
 
 const Login = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("submit");
-  };
-
   return (
     <Fragment>
-      <div className="main-wrap">
+      <div className="main-wrap container">
         <div className="nav-header bg-transparent shadow-none border-0">
           <div className="nav-top w-100">
             <Link to="/">

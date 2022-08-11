@@ -34,7 +34,7 @@ const SignUpPage = () => {
         <div className="row">
           <div
             className="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat"
-            style={{ backgroundImage: `url("https://via.placeholder.com/800x950.png")` }}
+            style={{ backgroundImage: "url('https://via.placeholder.com/800x950.png')" }}
           ></div>
           <div className="col-xl-7 vh-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
             <SignUp />

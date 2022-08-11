@@ -22,10 +22,17 @@ export const signIn = ({ correo, contrasena }) => {
  * @param {string} bodyDto.apellido
  * @returns {Promise<AxiosResponse<any>>}
  */
-export const signUp = (bodyDto) => {
-  return {
-    data: bodyDto,
-    token:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-  }; //api.post("/user-create", bodyDto);
+export const signUp = async (bodyDto) => {
+  try {
+    const response = await api.post("/user-create", bodyDto);
+    const data = response.data;
+
+    //if promise return and key error then return the message
+    if (data.error) {
+      throw new Error(data.error);
+    }
+    return response.data;
+  } catch (e) {
+    throw new Error(e.message);
+  }
 };

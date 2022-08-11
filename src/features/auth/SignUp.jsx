@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
+import Alert from "react-bootstrap/Alert";
 
 import { useAuth } from "../../context/ContextAuth";
 
@@ -38,25 +39,22 @@ const SignUp = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(userSchema) });
 
-  const { login } = useAuth();
-
-  const onSuccess = (data) => {
-    login(data.token);
-    navigation("/");
-  };
+  const { setAuth } = useAuth();
 
   const onFailure = (errors) => {
     console.log(errors);
   };
 
-  const mutate = useMutation(api.auth.signUp, {
+  const { mutate, error, isError, isSuccess, reset } = useMutation(api.auth.signUp, {
     onError: onFailure,
-    onSuccess: onSuccess,
+    onSuccess: (data) => {
+      setAuth(data.token);
+      navigation("/");
+    },
   });
 
   const onSubmit = (data) => {
-    mutate.mutate(data);
-    console.log(data);
+    mutate(data, { onSuccess: () => reset() });
   };
 
   return (
@@ -64,6 +62,16 @@ const SignUp = () => {
       <div className="card-body rounded-0 text-left">
         <h2 className="fw-700 display1-size display2-md-size mb-4">Registrarse</h2>
         <Form onSubmit={handleSubmit(onSubmit)} noValidate>
+          {isError ? (
+            <Alert variant="warning" onClose={() => reset()} dismissible>
+              {error?.message}
+            </Alert>
+          ) : null}
+          {isSuccess ? (
+            <Alert variant="success" onClose={() => reset()} dismissible>
+              Registrado con éxito
+            </Alert>
+          ) : null}
           <Form.Group as={Col} md="12" className="mb-3">
             <Form.Label>
               <i className="font-sm ti-user text-grey-500 pe-0"></i> Nombre

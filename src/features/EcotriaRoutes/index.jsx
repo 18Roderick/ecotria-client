@@ -14,6 +14,7 @@ const EcotriaRoutes = () => {
           <Route path="/" element={<Home />}>
             <Route index element={<Home />} />
           </Route>
+          <Route path="products" element={<div> Products </div>} />
           <Route path="auth">
             <Route path="login" element={<Auth />} />
             <Route path="register" element={<SignUpPage />} />
