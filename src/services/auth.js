@@ -9,8 +9,16 @@ const api = axiosInstance.default;
  * @param {string} bodyDto.contrasena
  * @returns {Promise<AxiosResponse<any>>}
  */
-export const signIn = ({ correo, contrasena }) => {
-  return api.post("/user-login", { correo, contrasena });
+export const signIn = async ({ correo, contrasena }) => {
+  try {
+    const response = await api.post("/user-login", { correo, contrasena });
+
+    if (response.data?.message) {
+      throw new Error(response.data.message);
+    }
+  } catch (e) {
+    throw new Error(e.message);
+  }
 };
 
 /**

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useMutation } from "react-query";
 import { Link } from "react-router-dom";
 
+import Alert from "react-bootstrap/Alert";
+
 import { useAuth } from "../../context/ContextAuth";
 
 import * as api from "../../services";
@@ -9,10 +11,10 @@ import * as api from "../../services";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+
   const { setAuth } = useAuth();
 
-  const mutation = useMutation(api.auth.signIn, {
+  const { mutate, isError, reset, error } = useMutation(api.auth.signIn, {
     onSuccess: (response) => {
       const data = response.data;
       if (data?.token) {
@@ -20,18 +22,19 @@ const SignIn = () => {
       }
       console.log(data);
     },
-    onError: (error) => {
-      setError(error.message);
-    },
   });
 
   const handleSubmit = (e) => {
-    mutation.mutate({ correo: email, contrasena: password });
+    mutate({ correo: email, contrasena: password });
     e.preventDefault();
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div className="form-group icon-input mb-1">{error}</div>
+      {isError ? (
+        <Alert variant="warning" onClose={() => reset()} dismissible>
+          {error?.message}
+        </Alert>
+      ) : null}
       <div className="form-group icon-input mb-3">
         <i className="font-sm ti-email text-grey-500 pe-0"></i>
 
