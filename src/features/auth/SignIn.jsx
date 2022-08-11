@@ -3,6 +3,7 @@ import { useMutation } from "react-query";
 import { Link } from "react-router-dom";
 
 import Alert from "react-bootstrap/Alert";
+import Spinner from "react-bootstrap/Spinner";
 
 import { useAuth } from "../../context/ContextAuth";
 
@@ -14,7 +15,7 @@ const SignIn = () => {
 
   const { setAuth } = useAuth();
 
-  const { mutate, isError, reset, error } = useMutation(api.auth.signIn, {
+  const { mutate, isError, reset, error, isLoading } = useMutation(api.auth.signIn, {
     onSuccess: (response) => {
       const data = response.data;
       if (data?.token) {
@@ -71,6 +72,9 @@ const SignIn = () => {
             type="submit"
             className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 "
           >
+            {isLoading ? (
+              <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
+            ) : null}
             Login
           </button>
         </div>

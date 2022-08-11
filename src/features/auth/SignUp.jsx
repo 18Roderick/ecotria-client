@@ -9,6 +9,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
+import Spinner from "react-bootstrap/Spinner";
 
 import { useAuth } from "../../context/ContextAuth";
 
@@ -45,7 +46,7 @@ const SignUp = () => {
     console.log(errors);
   };
 
-  const { mutate, error, isError, isSuccess, reset } = useMutation(api.auth.signUp, {
+  const { mutate, error, isError, isSuccess, reset, isLoading } = useMutation(api.auth.signUp, {
     onError: onFailure,
     onSuccess: (data) => {
       setAuth(data.token);
@@ -167,6 +168,9 @@ const SignUp = () => {
               type="submit"
               className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 "
             >
+              {isLoading ? (
+                <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
+              ) : null}
               Registrarme
             </Button>
           </div>
