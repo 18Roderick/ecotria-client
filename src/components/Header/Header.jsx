@@ -8,13 +8,8 @@ import Navbar from "react-bootstrap/Navbar";
 
 import { useAuth } from "../../context/ContextAuth";
 
-const activeClass =
-  (className) =>
-  ({ isActive }) =>
-    isActive ? className + " active" : className;
-
 const Header = () => {
-  const { isAuth, user } = useAuth();
+  const { isAuth, user, logOut } = useAuth();
   console.log(isAuth, user);
   return (
     <Navbar bg="light" expand="lg">
@@ -47,11 +42,20 @@ const Header = () => {
                 }
                 align="left"
               >
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/user/perfil">
+                  Perfil
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/user/ajustes">
+                  Ajustes
+                </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                <NavDropdown.Item
+                  onClick={() => {
+                    logOut();
+                  }}
+                >
+                  Cerrar Sesión
+                </NavDropdown.Item>
               </NavDropdown>
             ) : (
               <Nav.Link as={NavLink} to="/auth/login">

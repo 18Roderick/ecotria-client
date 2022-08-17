@@ -1,6 +1,4 @@
-import { axiosInstance } from "../utils";
-
-const api = axiosInstance.default;
+import axios from "./axios";
 
 /**
  *
@@ -11,13 +9,15 @@ const api = axiosInstance.default;
  */
 export const signIn = async ({ correo, contrasena }) => {
   try {
-    const response = await api.post("/user-login", { correo, contrasena });
+    const response = await axios.post("/user-login", { correo, contrasena });
 
-    if (response.data?.message) {
-      throw new Error(response.data.message);
+    if (response.data?.error) {
+      throw new Error(response.data.error);
     }
+
+    return response.data;
   } catch (e) {
-    throw new Error(e.message);
+    throw new Error(e.response?.data?.error || e.message);
   }
 };
 
@@ -32,7 +32,7 @@ export const signIn = async ({ correo, contrasena }) => {
  */
 export const signUp = async (bodyDto) => {
   try {
-    const response = await api.post("/user-create", bodyDto);
+    const response = await axios.post("/user-create", bodyDto);
     const data = response.data;
 
     //if promise return and key error then return the message
@@ -41,6 +41,6 @@ export const signUp = async (bodyDto) => {
     }
     return response.data;
   } catch (e) {
-    throw new Error(e.message);
+    throw new Error(e.response?.data?.error || e.message);
   }
 };

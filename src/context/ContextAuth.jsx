@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import jwtDecode from "jwt-decode";
-import {
-  setStorage,
-  removeSessionToken,
-  getSessionToken,
-  setSessionToken,
-} from "../utils/localStorageManager";
+import { removeSessionToken, getSessionToken, setSessionToken } from "../utils/localStorageManager";
 
 const AuthContext = React.createContext();
 
@@ -16,7 +11,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(token ? jwtDecode(token) : null);
   const login = (tk) => {
     if (tk) {
-      setStorage(tk);
       setSessionToken(tk);
       setToken(tk);
       setUser(jwtDecode(tk));
@@ -26,6 +20,7 @@ export const AuthProvider = ({ children }) => {
 
   const logOut = () => {
     removeSessionToken();
+    setUser(null);
     setToken(null);
     setAuth(false);
   };

@@ -1,4 +1,4 @@
-const SESSION_KEY = "SESSION_KEY_4895445445";
+const SESSION_KEY = "SESSION_KEY_f95f8378-73a6-4562-9547-c5c7a52d6a21";
 
 export const setStorage = (key, value) => {
   if (typeof value !== "string") value = JSON.stringify(value);

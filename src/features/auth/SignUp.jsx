@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -13,7 +13,7 @@ import Spinner from "react-bootstrap/Spinner";
 
 import { useAuth } from "../../context/ContextAuth";
 
-import * as api from "../../services";
+import api from "../../services";
 
 const userSchema = yup.object({
   nombre: yup.string().required("Nombre es requerido"),

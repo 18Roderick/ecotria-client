@@ -1,25 +1,52 @@
 import { useState } from "react";
-import { useMutation } from "react-query";
-import { Link } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { Link, useNavigate } from "react-router-dom";
 
 import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";
+import { localStorageManager } from "../../utils";
 
 import { useAuth } from "../../context/ContextAuth";
 
-import * as api from "../../services";
+import api from "../../services";
+
+const USER_EMAIL = "USER_EMAIL";
+const USER_PASS = "USER_PASS";
+
+const getItems = () => {
+  return {
+    email: localStorageManager.getStorage(USER_EMAIL) || "",
+    password: localStorageManager.getStorage(USER_PASS) || "",
+    isSave:
+      localStorageManager.getStorage(USER_EMAIL) && localStorageManager.getStorage(USER_PASS) ? true : false,
+  };
+};
+
+const removeItems = () => {
+  localStorageManager.deleteItem(USER_EMAIL);
+  localStorageManager.deleteItem(USER_PASS);
+};
+
+const saveItems = (email, password) => {
+  localStorageManager.setStorage(USER_EMAIL, email);
+  localStorageManager.setStorage(USER_PASS, password);
+};
 
 const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(getItems().email);
+  const [password, setPassword] = useState(getItems().password);
+  const [remenber, setRemenberMe] = useState(getItems().isSave);
 
+  const navigation = useNavigate();
   const { setAuth } = useAuth();
 
   const { mutate, isError, reset, error, isLoading } = useMutation(api.auth.signIn, {
-    onSuccess: (response) => {
-      const data = response.data;
+    onSuccess: (data) => {
       if (data?.token) {
         setAuth(data.token);
+        if (remenber) saveItems(email, password);
+        if (!remenber) removeItems();
+        navigation("/");
       }
       console.log(data);
     },
@@ -27,6 +54,7 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     mutate({ correo: email, contrasena: password });
+
     e.preventDefault();
   };
   return (
@@ -43,6 +71,7 @@ const SignIn = () => {
           type="text"
           className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
           placeholder="Tu correo electrónico"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
@@ -52,13 +81,20 @@ const SignIn = () => {
           type="Password"
           className="style2-input ps-5 form-control text-grey-900 font-xss ls-3"
           placeholder="Contraseña"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <i className="font-sm ti-lock text-grey-500 pe-0"></i>
       </div>
       <div className="form-check text-left mb-3">
         <label className="form-check-label font-xsss text-grey-500" htmlFor="rememberme">
-          <input type="checkbox" className="form-check-input mt-2" id="rememberme" />
+          <input
+            type="checkbox"
+            className="form-check-input mt-2"
+            id="rememberme"
+            checked={remenber}
+            onChange={() => setRemenberMe(!remenber)}
+          />
           Recordarme
         </label>
         <a href="/forgot" className="fw-600 font-xsss text-grey-700 mt-1 float-right">
