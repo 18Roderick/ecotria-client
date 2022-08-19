@@ -1,0 +1,30 @@
+name: Pushing Notifitcation
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+
+jobs:
+  send_mail:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        to-emails:
+          - renteriafrancisco51@gmail.com
+
+    steps:
+       - 
+        name: 'Sending Email Notificacion with SendGrid'
+        uses: licenseware/send-email-notification@v1
+        with:
+          api-key: ${{ secrets.SENDGRID_API_KEY }}
+          subject: Pushing into $GITHUB_REPOSITORY
+          from-email: ${{ secrets.EMAIL_TO_SEND_NOTIFICATION }}
+          to-email: ${{ matrix.to-emails }}
+          markdown-body: new features to download it
