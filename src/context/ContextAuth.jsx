@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import jwtDecode from "jwt-decode";
-import { removeSessionToken, getSessionToken, setSessionToken } from "../utils/localStorageManager";
+import { removeSessionToken, getSessionToken, setSessionToken, isTokenExpired } from "../utils";
 
 const AuthContext = React.createContext();
 
@@ -37,13 +37,16 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => {
-  return React.useContext(AuthContext);
+  const context = React.useContext(AuthContext);
+  if (context.token && isTokenExpired(context.token)) {
+    context.logOut();
+  }
+  return context;
 };
 
 export const PrivateRoute = ({ children }) => {
   let auth = useAuth();
   let location = useLocation();
-  console.log(auth);
   if (!auth.isAuth) {
     return <Navigate to="/auth/login" state={{ from: location }} replace />;
   }

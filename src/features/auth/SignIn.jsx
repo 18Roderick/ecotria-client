@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";
-import { localStorageManager } from "../../utils";
+import { getStorage, deleteItem, setStorage } from "../../utils";
 
 import { useAuth } from "../../context/ContextAuth";
 
@@ -15,27 +15,26 @@ const USER_PASS = "USER_PASS";
 
 const getItems = () => {
   return {
-    email: localStorageManager.getStorage(USER_EMAIL) || "",
-    password: localStorageManager.getStorage(USER_PASS) || "",
-    isSave:
-      localStorageManager.getStorage(USER_EMAIL) && localStorageManager.getStorage(USER_PASS) ? true : false,
+    email: getStorage(USER_EMAIL) || "",
+    password: getStorage(USER_PASS) || "",
+    isSave: getStorage(USER_EMAIL) && getStorage(USER_PASS) ? true : false,
   };
 };
 
 const removeItems = () => {
-  localStorageManager.deleteItem(USER_EMAIL);
-  localStorageManager.deleteItem(USER_PASS);
+  deleteItem(USER_EMAIL);
+  deleteItem(USER_PASS);
 };
 
 const saveItems = (email, password) => {
-  localStorageManager.setStorage(USER_EMAIL, email);
-  localStorageManager.setStorage(USER_PASS, password);
+  setStorage(USER_EMAIL, email);
+  setStorage(USER_PASS, password);
 };
 
 const SignIn = () => {
   const [email, setEmail] = useState(getItems().email);
   const [password, setPassword] = useState(getItems().password);
-  const [remenber, setRemenberMe] = useState(getItems().isSave);
+  const [remember, setRememberMe] = useState(getItems().isSave);
 
   const navigation = useNavigate();
   const { setAuth } = useAuth();
@@ -44,11 +43,10 @@ const SignIn = () => {
     onSuccess: (data) => {
       if (data?.token) {
         setAuth(data.token);
-        if (remenber) saveItems(email, password);
-        if (!remenber) removeItems();
+        if (remember) saveItems(email, password);
+        if (!remember) removeItems();
         navigation("/");
       }
-      console.log(data);
     },
   });
 
@@ -92,8 +90,8 @@ const SignIn = () => {
             type="checkbox"
             className="form-check-input mt-2"
             id="rememberme"
-            checked={remenber}
-            onChange={() => setRemenberMe(!remenber)}
+            checked={remember}
+            onChange={() => setRememberMe(!remember)}
           />
           Recordarme
         </label>

@@ -9,8 +9,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { useAuth } from "../../context/ContextAuth";
 
 const Header = () => {
-  const { isAuth, user, logOut } = useAuth();
-  console.log(isAuth, user);
+  const { isAuth, logOut } = useAuth();
   return (
     <Navbar bg="light" expand="lg">
       <Container>
