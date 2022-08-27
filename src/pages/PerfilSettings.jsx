@@ -22,7 +22,8 @@ const PerfilSettingsPage = () => {
                     <ul className="list-inline mb-4">
                       <li className="list-inline-item d-block border-bottom me-0">
                         <Link to="/user/informacion" className="pt-2 pb-2 d-flex align-items-center">
-                          <i className="btn-round-md bg-primary-gradiant text-white feather-home font-md me-3"></i>{" "}
+                          <i className="fa-solid fa-user btn-round-md bg-primary text-white font-md me-3"></i>
+                          {/* <i className="btn-round-md bg-primary-gradiant text-white feather-home font-md me-3"></i> */}
                           <h4 className="fw-600 font-xsss mb-0 mt-0">Datos de usuario</h4>
                           <i className="ti-angle-right font-xsss text-grey-500 ms-auto mt-3"></i>
                         </Link>
