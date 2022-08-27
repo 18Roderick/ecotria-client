@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import FormularioUsuario from "../components/Settings/FormularioUsuario";
 import { useAuth } from "../context/ContextAuth";
 
+//TODO add api call to user information
 const PerfilInformacion = () => {
   const { token } = useAuth();
   console.log("PerfilInformacion", token);
