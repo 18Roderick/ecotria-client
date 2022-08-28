@@ -1,6 +1,6 @@
 import axios from "./axios";
 
-export const getProductsByPage = async ({ token, currentPage = 0, postsLimit = 10 }) => {
+export const getProductsByPage = async ({ token, currentPage = 0, postsLimit = 10, signal }) => {
   const response = await axios.post(
     "/post_list_all",
     {
@@ -8,6 +8,7 @@ export const getProductsByPage = async ({ token, currentPage = 0, postsLimit = 1
       postsLimit,
     },
     {
+      signal,
       headers: {
         Authorization: token,
       },

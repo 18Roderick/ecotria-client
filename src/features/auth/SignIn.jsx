@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 
 import Alert from "react-bootstrap/Alert";
-import Spinner from "react-bootstrap/Spinner";
+import { Spinner } from "../../components/Loading";
 import { getStorage, deleteItem, setStorage } from "../../utils";
 
 import { useAuth } from "../../context/ContextAuth";
@@ -106,9 +106,7 @@ const SignIn = () => {
             type="submit"
             className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 "
           >
-            {isLoading ? (
-              <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
-            ) : null}
+            <Spinner show={isLoading} />
             Login
           </button>
         </div>
