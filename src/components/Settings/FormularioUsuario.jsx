@@ -1,23 +1,38 @@
 import React from "react";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 
-const FormularioUsuario = ({ edit = false, user: { nombre, apellido, photoProfile, ...data } = {} }) => {
+import { useAuth } from "../../context/ContextAuth";
+import api from "../../services";
+
+const FormularioUsuario = ({
+  edit = false,
+  toggleEdit = () => {},
+  user: { nombre, apellido, photoProfile, correo } = {},
+}) => {
+  const query = useQueryClient();
+  const { token } = useAuth();
+  const { mutate, reset } = useMutation(api.user.updateUserInfo, {});
+
   const [cacheInfo, setCache] = useState({ nombre, apellido, photoProfile });
-  const formRef = useRef();
 
   const handleSubmit = (e) => {
-    console.log(data);
+    mutate({ token, data: cacheInfo });
     e.preventDefault();
   };
 
   const handleChange = (key) => (e) => setCache({ ...cacheInfo, [key]: e.target.value });
 
-  const resetForm = () => {
+  const resetForm = (e) => {
+    e.preventDefault();
     setCache({ nombre, apellido, photoProfile });
+    query.invalidateQueries(["userInfo"]);
+    toggleEdit();
+    reset();
   };
 
   return (
-    <form onSubmit={handleSubmit} ref={formRef}>
+    <form onSubmit={handleSubmit}>
       <div className="row">
         <div className="col-lg-6 mb-3">
           <div className="form-group">
@@ -37,7 +52,15 @@ const FormularioUsuario = ({ edit = false, user: { nombre, apellido, photoProfil
         <div className="col-lg-6 mb-3">
           <div className="form-group">
             <label className="mont-font fw-600 font-xsss mb-2">Last Name</label>
-            <input type="text" className="form-control" disabled={!edit} />
+            <input
+              type="text"
+              className="form-control"
+              disabled={!edit}
+              name="apellido"
+              value={cacheInfo.apellido}
+              autoComplete="off"
+              onChange={handleChange("apellido")}
+            />
           </div>
         </div>
       </div>
@@ -45,50 +68,20 @@ const FormularioUsuario = ({ edit = false, user: { nombre, apellido, photoProfil
       <div className="row">
         <div className="col-lg-6 mb-3">
           <div className="form-group">
-            <label className="mont-font fw-600 font-xsss mb-2">Email</label>
-            <input type="text" className="form-control" disabled />
+            <label className="mont-font fw-600 font-xsss mb-2">Correo</label>
+            <input type="text" className="form-control" disabled value={correo} />
           </div>
         </div>
 
         <div className="col-lg-6 mb-3">
           <div className="form-group">
-            <label className="mont-font fw-600 font-xsss mb-2">Phone</label>
+            <label className="mont-font fw-600 font-xsss mb-2">Celular</label>
             <input type="text" className="form-control" disabled={!edit} />
           </div>
         </div>
       </div>
 
       <div className="row">
-        <div className="col-lg-12 mb-3">
-          <div className="form-group">
-            <label className="mont-font fw-600 font-xsss mb-2">Country</label>
-            <input type="text" className="form-control" disabled={!edit} />
-          </div>
-        </div>
-
-        <div className="col-lg-12 mb-3">
-          <div className="form-group">
-            <label className="mont-font fw-600 font-xsss mb-2">Address</label>
-            <input type="text" className="form-control" disabled={!edit} />
-          </div>
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="col-lg-6 mb-3">
-          <div className="form-group">
-            <label className="mont-font fw-600 font-xsss mb-2">Twon / City</label>
-            <input type="text" className="form-control" disabled={!edit} />
-          </div>
-        </div>
-
-        <div className="col-lg-6 mb-3">
-          <div className="form-group">
-            <label className="mont-font fw-600 font-xsss mb-2">Postcode</label>
-            <input type="text" className="form-control" disabled={!edit} />
-          </div>
-        </div>
-
         <div className="col-lg-12 mb-3">
           <div className="card mt-3 border-0">
             <div className="card-body d-flex justify-content-between align-items-end p-0">
@@ -104,16 +97,6 @@ const FormularioUsuario = ({ edit = false, user: { nombre, apellido, photoProfil
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="col-lg-12 mb-3">
-          <label className="mont-font fw-600 font-xsss mb-2 text-dark">Description</label>
-          <textarea
-            className="form-control mb-0 p-3 h100 bg-greylight lh-16"
-            rows="5"
-            placeholder="Write your message..."
-            disabled={!edit}
-          ></textarea>
         </div>
 
         <div className="col-lg-12 justify-content-between">
