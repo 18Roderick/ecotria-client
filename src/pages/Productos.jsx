@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useQuery } from "@tanstack/react-query";
 import ProgressLoader from "../components/Loading/ProgressLoader";
 
@@ -9,6 +9,7 @@ import api from "../services";
 import ProductsList from "../components/Products/ProductsList";
 
 const Productos = () => {
+  const [animateParent] = useAutoAnimate();
   const { token } = useAuth();
   const { data, isLoading, isFetching } = useQuery(
     ["productos"],
@@ -26,7 +27,7 @@ const Productos = () => {
           <div className="middle-sidebar-left pe-0" style={{ maxWidth: "100%" }}>
             <div className="row">
               <div className="col-xl-12 chat-left scroll-bar">
-                <div className="row ps-2 pe-2">
+                <div className="row ps-2 pe-2" ref={animateParent}>
                   <ProductsList productos={data?.data} />
                 </div>
               </div>

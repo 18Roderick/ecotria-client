@@ -31,16 +31,7 @@ const Header = () => {
           </Nav>
           <Nav className="ms-auto">
             {isAuth ? (
-              <NavDropdown
-                title={
-                  <img
-                    src="https://avatars.dicebear.com/api/bottts/:sean.svg"
-                    alt="user"
-                    className="w40 mt--1 p-0 ms-3 menu-icon"
-                  />
-                }
-                align="left"
-              >
+              <NavDropdown title="Perfil" align="left">
                 <NavDropdown.Item as={NavLink} to="/user/perfil">
                   Perfil
                 </NavDropdown.Item>
