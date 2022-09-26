@@ -2,6 +2,40 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/ContextAuth";
 
+const listGenerales = [
+  {
+    href: "/user/informacion",
+    bg: "bg-primary",
+    icon: "fa-solid fa-user",
+    title: "Datos de usuario",
+  },
+  {
+    href: "/user/direcciones",
+    bg: "bg-gold-gradiant",
+    icon: "feather-map-pin",
+    title: "Datos de usuario",
+  },
+];
+
+const SectionItem = ({ title = "", items = [] }) => {
+  return (
+    <div>
+      <div className="nav-caption fw-600 font-xssss text-grey-500 mb-2">{title}</div>
+      <ul className="list-inline mb-4">
+        {items.map((item, key) => (
+          <li className="list-inline-item d-block border-bottom me-0" key={key}>
+            <Link to={item?.href} className="pt-2 pb-2 d-flex align-items-center">
+              <i className={`${item?.href} btn-round-md ${item?.bg} text-white font-md me-3`}></i>
+              <h4 className="fw-600 font-xsss mb-0 mt-0">{item?.title}</h4>
+              <i className="ti-angle-right font-xsss text-grey-500 ms-auto mt-3"></i>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
 const PerfilSettingsPage = () => {
   const { logOut } = useAuth();
   const cerrarSesion = (e) => {
@@ -17,28 +51,17 @@ const PerfilSettingsPage = () => {
               <div className="card-body p-lg-5 p-4 w-100 border-0">
                 <div className="row">
                   <div className="col-lg-12">
-                    <h4 className="mb-4 font-xxl fw-700 mont-font mb-lg-5 mb-4 font-md-xs">Configuración</h4>
-                    <div className="nav-caption fw-600 font-xssss text-grey-500 mb-2">General</div>
-                    <ul className="list-inline mb-4">
-                      <li className="list-inline-item d-block border-bottom me-0">
-                        <Link to="/user/informacion" className="pt-2 pb-2 d-flex align-items-center">
-                          <i className="fa-solid fa-user btn-round-md bg-primary text-white font-md me-3"></i>
-                          {/* <i className="btn-round-md bg-primary-gradiant text-white feather-home font-md me-3"></i> */}
-                          <h4 className="fw-600 font-xsss mb-0 mt-0">Datos de usuario</h4>
-                          <i className="ti-angle-right font-xsss text-grey-500 ms-auto mt-3"></i>
-                        </Link>
-                      </li>
-                      <li className="list-inline-item d-block border-bottom me-0">
-                        <Link to="/user/direcciones" className="pt-2 pb-2 d-flex align-items-center">
-                          <i className="btn-round-md bg-gold-gradiant text-white feather-map-pin font-md me-3"></i>{" "}
-                          <h4 className="fw-600 font-xsss mb-0 mt-0">Direcciones</h4>
-                          <i className="ti-angle-right font-xsss text-grey-500 ms-auto mt-3"></i>
-                        </Link>
-                      </li>
-                    </ul>
+                    <SectionItem title="General" items={listGenerales} />
 
                     <div className="nav-caption fw-600 font-xsss text-grey-500 mb-2">Cuenta</div>
                     <ul className="list-inline mb-4">
+                      <li className="list-inline-item d-block  me-0">
+                        <Link to="/user/productos" className="pt-2 pb-2 d-flex align-items-center">
+                          <i className="btn-round-md bg-blue-gradiant text-white feather-inbox font-md me-3"></i>{" "}
+                          <h4 className="fw-600 font-xsss mb-0 mt-0">Mis Productos</h4>
+                          <i className="ti-angle-right font-xsss text-grey-500 ms-auto mt-3"></i>
+                        </Link>
+                      </li>
                       <li className="list-inline-item d-block border-bottom me-0">
                         <Link to="/user/tarjetas" className="pt-2 pb-2 d-flex align-items-center">
                           <i className="btn-round-md bg-mini-gradiant text-white feather-credit-card font-md me-3"></i>{" "}

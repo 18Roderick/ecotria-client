@@ -2,20 +2,19 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import SignIn from "../features/auth/SignIn";
 
+import logo from "../assets/images/Ecotria.png";
+
 const Login = () => {
   return (
     <Fragment>
       <div className="main-wrap container">
         <div className="nav-header bg-transparent shadow-none border-0">
-          <div className="nav-top w-100">
-            <Link to="/">
-              <i className="feather-zap text-success display1-size me-2 ms-0"></i>
-              <span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
-                Ecotria
-              </span>
-            </Link>
-
-            <button className="nav-menu me-0 ms-auto"></button>
+          <div className="nav-top mt-3 w-100 d-flex justify-content-center">
+            <div className="    ">
+              <Link to="/" className="d-flex justify-content-center">
+                <img src={logo} width="100" height="100" alt="Ecotria Logo" />
+              </Link>
+            </div>
           </div>
         </div>
         <div className="row">

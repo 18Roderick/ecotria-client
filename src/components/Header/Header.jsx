@@ -8,15 +8,22 @@ import Navbar from "react-bootstrap/Navbar";
 
 import { useAuth } from "../../context/ContextAuth";
 
+import logo from "../../assets/images/Ecotria.png";
+
 const Header = () => {
   const { isAuth, logOut } = useAuth();
   return (
     <Navbar bg="light" expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/" className="">
-          <i className="feather-zap text-success display2-size me-3 ms-0"></i>
           <span className="d-inline-block text-primary fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
-            Ecotria
+            <img
+              src={logo}
+              width="60"
+              height="60"
+              className="d-inline-block align-center"
+              alt="Ecotria Logo"
+            />
           </span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
