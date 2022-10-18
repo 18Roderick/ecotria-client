@@ -4,6 +4,8 @@ import Home from "../../pages/Home.page";
 import Auth from "../../pages/Auth.page";
 import SignUpPage from "../../pages/SignUp.page";
 
+import UserProducts from "../../pages/user/Products";
+
 import { AuthProvider, PrivateRoute } from "../../context/ContextAuth";
 
 const EcotriaRoutes = () => {
@@ -18,6 +20,9 @@ const EcotriaRoutes = () => {
           <Route path="auth">
             <Route path="login" element={<Auth />} />
             <Route path="register" element={<SignUpPage />} />
+          </Route>
+          <Route path="user" element={<Home />}>
+            <Route path="productos" element={<UserProducts />} />
           </Route>
           <Route
             path="admin"

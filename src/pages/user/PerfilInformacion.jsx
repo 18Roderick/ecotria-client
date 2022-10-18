@@ -3,10 +3,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 
-import FormularioUsuario from "../components/Settings/FormularioUsuario";
-import { useAuth } from "../context/ContextAuth";
+import FormularioUsuario from "../../components/Settings/FormularioUsuario";
+import { useAuth } from "../../context/ContextAuth";
 
-import api from "../services";
+import api from "../../services";
 import { useCallback } from "react";
 
 //TODO add api call to user information

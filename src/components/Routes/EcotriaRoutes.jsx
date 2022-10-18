@@ -3,13 +3,17 @@ import Home from "../../pages/Home.page";
 //import App from "../../App";
 import Auth from "../../pages/Auth.page";
 import SignUpPage from "../../pages/SignUp.page";
-import PerfilPageSettings from "../../pages/PerfilSettings";
+import PerfilPageSettings from "../../pages/user/PerfilSettings";
 import MainLayout from "../Layouts/MainLayout";
 
 import { AuthProvider, PrivateRoute } from "../../context/ContextAuth";
 import PageNotFound from "../../pages/PageNotFound";
-import PerfilInformacion from "../../pages/PerfilInformacion";
+import PerfilInformacion from "../../pages/user/PerfilInformacion";
 import Productos from "../../pages/Productos";
+
+//user
+import UserProducts from "../../pages/user/UserProducts";
+import ProtectedLayout from "../Layouts/ProtectedLayout";
 
 const EcotriaRoutes = () => {
   return (
@@ -23,11 +27,9 @@ const EcotriaRoutes = () => {
             <Route
               index
               element={
-                <PrivateRoute>
-                  <MainLayout>
-                    <Productos />
-                  </MainLayout>
-                </PrivateRoute>
+                <ProtectedLayout>
+                  <Productos />
+                </ProtectedLayout>
               }
             />
           </Route>
@@ -46,11 +48,17 @@ const EcotriaRoutes = () => {
             <Route
               path="informacion"
               element={
-                <PrivateRoute>
-                  <MainLayout>
-                    <PerfilInformacion />
-                  </MainLayout>
-                </PrivateRoute>
+                <ProtectedLayout>
+                  <PerfilInformacion />
+                </ProtectedLayout>
+              }
+            />
+            <Route
+              path="productos"
+              element={
+                <ProtectedLayout>
+                  <UserProducts />
+                </ProtectedLayout>
               }
             />
           </Route>

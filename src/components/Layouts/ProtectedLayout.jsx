@@ -1,12 +1,10 @@
 import { PrivateRoute } from "../../context/ContextAuth";
-
-import Header from "../Header/Header";
+import MainLayout from "./MainLayout";
 
 const ProtectedLayout = ({ children }) => {
   return (
     <PrivateRoute>
-      <Header />
-      {children}
+      <MainLayout>{children}</MainLayout>
     </PrivateRoute>
   );
 };

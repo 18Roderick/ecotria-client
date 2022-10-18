@@ -21,7 +21,7 @@ const PageNotFound = () => {
               <p className="text-grey-500 font-xsss">La Pagina que buscas no esta disponible</p>
               <Button
                 onClick={() => {
-                  navigate("/");
+                  navigate(-1);
                 }}
               >
                 Regresar

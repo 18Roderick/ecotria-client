@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/ContextAuth";
+import { useAuth } from "../../context/ContextAuth";
 
 const listGenerales = [
   {
@@ -25,7 +25,7 @@ const SectionItem = ({ title = "", items = [] }) => {
         {items.map((item, key) => (
           <li className="list-inline-item d-block border-bottom me-0" key={key}>
             <Link to={item?.href} className="pt-2 pb-2 d-flex align-items-center">
-              <i className={`${item?.href} btn-round-md ${item?.bg} text-white font-md me-3`}></i>
+              <i className={`${item?.icon} btn-round-md ${item?.bg} text-white font-md me-3`}></i>
               <h4 className="fw-600 font-xsss mb-0 mt-0">{item?.title}</h4>
               <i className="ti-angle-right font-xsss text-grey-500 ms-auto mt-3"></i>
             </Link>
@@ -64,7 +64,7 @@ const PerfilSettingsPage = () => {
                       </li>
                       <li className="list-inline-item d-block border-bottom me-0">
                         <Link to="/user/tarjetas" className="pt-2 pb-2 d-flex align-items-center">
-                          <i className="btn-round-md bg-mini-gradiant text-white feather-credit-card font-md me-3"></i>{" "}
+                          <i className="btn-round-md bg-mini-gradiant text-white feather-credit-card font-md me-3"></i>
                           <h4 className="fw-600 font-xsss mb-0 mt-0">Mis Tarjetas</h4>
                           <i className="ti-angle-right font-xsss text-grey-500 ms-auto mt-3"></i>
                         </Link>
