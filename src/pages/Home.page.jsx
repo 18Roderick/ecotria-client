@@ -1,97 +1,81 @@
-import Header from "../components/Header";
-import Leftnav from "../components/Leftnav";
-import Rightchat from "../components/Rightchat";
-import Appfooter from "../components/Appfooter";
-import Popupchat from "../components/Popupchat";
+import React from "react";
+import InfiniteScroll from "react-infinite-scroller";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
-import Friends from "../components/Friends";
-import Contacts from "../components/Contacts";
-import Group from "../components/Group";
-import Events from "../components/Events";
-import Memberslider from "../components/Memberslider";
-import Friendsilder from "../components/Friendsilder";
-import Storyslider from "../components/Storyslider";
 import Postview from "../components/Postview";
 import Load from "../components/Load";
-import Profilephoto from "../components/Profilephoto";
+
+import { useAuth } from "../context/ContextAuth";
+
+import api from "../services";
 
 const Home = () => {
-  return (
-    <>
-      {" "}
-      <Header />
-      <Leftnav />
-      <Rightchat />
-      <div className="main-content right-chat-active">
-        <div className="middle-sidebar-bottom">
-          <div className="middle-sidebar-left">
-            <div className="row feed-body">
-              <div className="col-xl-8 col-xxl-9 col-lg-8">
-                <Storyslider />
+  const { token } = useAuth();
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(
+    ["productos"],
+    ({ signal, pageParam = 1 }) => api.productos.getProductsByPage({ signal, token, page: pageParam }),
+    {
+      getNextPageParam: (lastPage) => {
+        if (lastPage.page === lastPage.total || !lastPage.data) return false;
+        return lastPage.page + 1;
+      },
+    }
+  );
 
-                <Postview
-                  id="32"
-                  postvideo=""
-                  postimage="post.png"
-                  avater="user.png"
-                  user="Surfiya Zakir"
-                  time="22 min ago"
-                  des="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus."
-                />
-                <Postview
-                  id="31"
-                  postvideo=""
-                  postimage="post.png"
-                  avater="user.png"
-                  user="David Goria"
-                  time="22 min ago"
-                  des="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus."
-                />
-                <Postview
-                  id="33"
-                  postvideo=""
-                  postimage="post.png"
-                  avater="user.png"
-                  user="Anthony Daugloi"
-                  time="2 hour ago"
-                  des="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus."
-                />
-                <Memberslider />
-                <Postview
-                  id="35"
-                  postvideo=""
-                  postimage="post.png"
-                  avater="user.png"
-                  user="Victor Exrixon"
-                  time="3 hour ago"
-                  des="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus."
-                />
-                <Friendsilder />
-                <Postview
-                  id="36"
-                  postvideo=""
-                  postimage="post.png"
-                  avater="user.png"
-                  user="Victor Exrixon"
-                  time="12 hour ago"
-                  des="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus."
-                />
-                <Load />
-              </div>
-              <div className="col-xl-4 col-xxl-3 col-lg-4 ps-lg-0">
-                <Friends />
-                <Contacts />
-                <Group />
-                <Events />
-                <Profilephoto />
-              </div>
+  const products = data?.pages.reduce((prevProducts, page) => prevProducts.concat(page.data), []) ?? [];
+
+  console.log(products);
+  return (
+    <div className="main-content right-chat-active">
+      <div className="middle-sidebar-bottom">
+        <div className="middle-sidebar-left">
+          <div className="row feed-body">
+            <div className="col-xl-8 col-xxl-9 col-lg-8">
+              <InfiniteScroll
+                pageStart={1}
+                loadMore={() => fetchNextPage()}
+                hasMore={hasNextPage || isLoading}
+                loader={<Load />}
+              >
+                {products.length > 0 ? (
+                  products.map((producto) => (
+                    <Postview
+                      key={producto._id}
+                      id={producto._id}
+                      postvideo=""
+                      postimage={producto.Image?.length ? producto.Image[0] : "https://picsum.photos/800/450"}
+                      avatar={producto.Image?.length ? producto.Image[0] : "https://picsum.photos/100/100"}
+                      user={producto.titlePost}
+                      time={producto.createDate}
+                      des={producto.descriptionPost}
+                    />
+                  ))
+                ) : (
+                  <>No Data</>
+                )}
+              </InfiniteScroll>
+              {/* <Postview
+                      key={key}
+                      id={producto._id}
+                      postvideo=""
+                      postimage={producto.Image?.length ? producto.Image[0] : "https://picsum.photos/800/450"}
+                      avatar={producto.Image?.length ? producto.Image[0] : "https://picsum.photos/100/100"}
+                      user={producto.titlePost}
+                      time={producto.createDate}
+                      des={producto.descriptionPost}
+                    /> */}
             </div>
+            {/* <div className="col-xl-4 col-xxl-3 col-lg-4 ps-lg-0">
+              <Friends />
+              <Contacts />
+              <Group />
+              <Events />
+              <Profilephoto />
+            </div> */}
           </div>
         </div>
       </div>
-      <Popupchat />
-      <Appfooter />{" "}
-    </>
+    </div>
   );
 };
 

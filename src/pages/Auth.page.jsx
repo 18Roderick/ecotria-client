@@ -25,13 +25,13 @@ const Login = () => {
 
             <a
               href="/auth/login"
-              className="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl"
+              className="header-btn d-none d-lg-block  fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl"
             >
               Login
             </a>
             <a
               href="/auth/register"
-              className="header-btn d-none d-lg-block bg-primary fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl"
+              className="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl"
             >
               Registrarse
             </a>

@@ -19,7 +19,7 @@ const PerfilInformacion = () => {
 
   const { data, isLoading } = useQuery(["userInfo"], getUser);
   return (
-    <div className="p-5 bg-lightblue theme-dark-bg right-chat-active justify-content-center">
+    <div className="main-content bg-lightblue theme-dark-bg right-chat-active">
       <div className="middle-sidebar-bottom">
         <div className="middle-sidebar-left">
           <div className="middle-wrap">

@@ -1,10 +1,10 @@
 import axios from "./axios";
 
-export const getProductsByPage = async ({ token, currentPage = 0, postsLimit = 10, signal }) => {
+export const getProductsByPage = async ({ token, page = 0, postsLimit = 10, signal }) => {
   const response = await axios.post(
     "/post_list_all",
     {
-      currentPage,
+      currentPage: page,
       postsLimit,
     },
     {

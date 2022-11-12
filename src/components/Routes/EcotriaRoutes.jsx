@@ -20,7 +20,14 @@ const EcotriaRoutes = () => {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<Home />}>
+          <Route
+            path="/"
+            element={
+              <MainLayout>
+                <Home />
+              </MainLayout>
+            }
+          >
             <Route index element={<Home />} />
           </Route>
           <Route path="productos">
