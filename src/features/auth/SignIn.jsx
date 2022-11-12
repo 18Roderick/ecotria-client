@@ -110,12 +110,6 @@ const SignIn = () => {
             Login
           </button>
         </div>
-        <h6 className="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">
-          Ya tienes cuenta?
-          <Link to="/auth/register" className="fw-700 ms-1">
-            Registrarme
-          </Link>
-        </h6>
       </div>
     </form>
   );
