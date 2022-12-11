@@ -1,0 +1,11 @@
+FROM node
+WORKDIR /app
+COPY . .
+
+RUN npm i
+RUN npm run build
+RUN npm i http-server
+COPY . .
+## EXPOSE [Port you mentioned in the vite.config file]
+EXPOSE 3000
+#CMD ["npm", "run", "start:dev", "-- -p 3000"]

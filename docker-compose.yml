@@ -1,0 +1,16 @@
+version: "2.14"
+services:
+  app:
+    container_name: ecotria_client
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - ./.env
+    volumes:
+      - ./:/app/
+    ports:
+      - 3000:3000
+    WORKDIR: /app/
+    command: "http-server ./dist -p 3000"

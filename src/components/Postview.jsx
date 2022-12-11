@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Postview = ({ user, time, des, avatar, postimage, postvideo, id }) => {
+const Postview = ({ title, time, description, avatar, postimage, postvideo, id }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
@@ -13,12 +13,11 @@ const Postview = ({ user, time, des, avatar, postimage, postvideo, id }) => {
     <div className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
       <div className="card-body p-0 d-flex">
         <figure className="avatar me-3">
-          <img src={`${avatar}`} alt="avater" className="shadow-sm rounded-circle w45" />
+          <img src={`${avatar}`} alt="avatar" className="shadow-sm rounded-circle w45" />
         </figure>
-        <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-          {" "}
-          {user} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"> {time}</span>
-        </h4>
+        <h3 className="fw-700 text-grey-900 font-xssss mt-1">
+          {title} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"> {time}</span>
+        </h3>
         <div className="ms-auto pointer">
           <i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i>
         </div>
@@ -36,7 +35,7 @@ const Postview = ({ user, time, des, avatar, postimage, postvideo, id }) => {
       )}
       <div className="card-body p-0 me-lg-5">
         <p className="fw-500 text-grey-500 lh-26 font-xssss w-100 mb-2">
-          {des}{" "}
+          {description}{" "}
           <a href="/defaultvideo" className="fw-600 text-primary ms-2">
             See more
           </a>

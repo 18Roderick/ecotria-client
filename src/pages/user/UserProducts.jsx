@@ -1,70 +1,65 @@
-import React from "react";
-import { Table, Container, Button, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-import Pagetitle from "../../components/Pagetitle";
-
-const tableHeaders = ["id", "Titulo", "Precio", "Acciones"];
-
-const products = [
+// TODO LIST OF products of the user
+const emailList = [
   {
-    id: 1,
-    title: "ProductsCard",
-    precio: 25.1,
+    id: "isn333115515616516",
+    image: "https://picsum.photos/100/100",
+    title: "Grains",
+    description: "Natural grow grains from chiriqui",
+    quantity: 25,
   },
   {
-    id: 2,
-    title: "Product 2",
-    precio: 25.2,
+    id: "isn33311551561651645",
+    image: "https://picsum.photos/100/100",
+    title: "Grains",
+    description: "Natural grow grains from chiriqui",
+    quantity: 25,
   },
 ];
 
-const TableHeaders = () => (
-  <thead>
-    <tr>
-      {tableHeaders.map((value, index) => (
-        <th key={index}>{value}</th>
-      ))}
-    </tr>
-  </thead>
-);
+const ItemList = ({ id, image, quantity, title, description, category }) => (
+  <li>
+    <Link to={`/user/products/${id}`} className={"rounded-3 border-light"}>
+      <div className="form-check mt-1">
+        <input className="form-check-input" type="checkbox" id="blankCheckbox1" />
+        <label className="text-grey-500 font-xssss" htmlFor="blankCheckbox1"></label>
+      </div>
+      <div className="email-user">
+        <span className="btn-round-xss ms-0 bg-success me-2"></span>
+        <img src={image} alt={title} className="w35 me-2" />
+        <h6 className="font-xssss text-grey-900 text-grey-900 mb-0 mt-0 fw-700">{title}</h6>
+      </div>
+      <div className="email-subject text-grey-900 text-dark fw-600 font-xssss">
+        <i className="feather-star font-xss text-warning me-2"></i>
+        {category}
+      </div>
+      <div className="email-text text-grey-500 fw-600 font-xssss">{description}</div>
 
-const TableActions = () => {
-  return (
-    <Row className="g-1">
-      <Col xs={2} className="g-1">
-        <Button type="sm" variant="primary">
-          <i className="fa-solid fa-pen"></i>
-        </Button>
-      </Col>
-      <Col xs={2} className="g-1">
-        <Button type="sm" variant="danger">
-          <i className="fa-solid fa-trash-can"></i>
-        </Button>
-      </Col>
-    </Row>
-  );
-};
+      <div className="email-time text-grey-500 fw-600">{quantity}</div>
+    </Link>
+  </li>
+);
 
 const UserProducts = () => {
   return (
-    <Container className="mt-2">
-      <Pagetitle title="Productos" />
-      <Table striped bordered className="rounded">
-        <TableHeaders />
-        <tbody>
-          {products.map((value, index) => (
-            <tr key={index}>
-              <td>{value.id}</td>
-              <td>{value.title}</td>
-              <td>{value.precio}</td>
-              <td>
-                <TableActions />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </Container>
+    <div className="main-content right-chat-active">
+      <div className="middle-sidebar-bottom">
+        <div className="middle-sidebar-left pe-0 ps-lg-3 ms-0 me-0" style={{ maxWidth: "100%" }}>
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="chat-wrapper p-3 w-100 position-relative scroll-bar bg-white theme-dark-bg">
+                <ul className="email-message">
+                  {emailList.map((value) => (
+                    <ItemList {...value} key={value.id} />
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -45,25 +45,15 @@ const Home = () => {
                       postvideo=""
                       postimage={producto.Image?.length ? producto.Image[0] : "https://picsum.photos/800/450"}
                       avatar={producto.Image?.length ? producto.Image[0] : "https://picsum.photos/100/100"}
-                      user={producto.titlePost}
+                      title={producto.titlePost}
                       time={producto.createDate}
-                      des={producto.descriptionPost}
+                      description={producto.descriptionPost}
                     />
                   ))
                 ) : (
-                  <>No Data</>
+                  <div></div>
                 )}
               </InfiniteScroll>
-              {/* <Postview
-                      key={key}
-                      id={producto._id}
-                      postvideo=""
-                      postimage={producto.Image?.length ? producto.Image[0] : "https://picsum.photos/800/450"}
-                      avatar={producto.Image?.length ? producto.Image[0] : "https://picsum.photos/100/100"}
-                      user={producto.titlePost}
-                      time={producto.createDate}
-                      des={producto.descriptionPost}
-                    /> */}
             </div>
             {/* <div className="col-xl-4 col-xxl-3 col-lg-4 ps-lg-0">
               <Friends />
