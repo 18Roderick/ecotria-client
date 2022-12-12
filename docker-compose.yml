@@ -4,7 +4,7 @@ services:
     container_name: ecotria_client
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: DockerFile
     restart: unless-stopped
     environment:
       - ./.env
@@ -12,5 +12,5 @@ services:
       - ./:/app/
     ports:
       - 3000:3000
-    WORKDIR: /app/
     command: "http-server ./dist -p 3000"
+    # command: "npm run start:prod"

@@ -1,11 +1,14 @@
 FROM node
 WORKDIR /app
 COPY . .
+#COPY package-lock.json package-lock.json
 
-RUN npm i
+# RUN apt install curl -y
+# RUN curl -fsSL "https://github.com/pnpm/pnpm/releases/latest/download/pnpm-linuxstatic-x64" -o /bin/pnpm; chmod +x /bin/pnpm;
+RUN npm install --force
 RUN npm run build
-RUN npm i http-server
-COPY . .
-## EXPOSE [Port you mentioned in the vite.config file]
+RUN npm install -g http-server --force
+# EXPOSE [Port you mentioned in the vite.config file]
+
 EXPOSE 3000
 #CMD ["npm", "run", "start:dev", "-- -p 3000"]
