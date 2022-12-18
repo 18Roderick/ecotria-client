@@ -33,7 +33,7 @@ services:
       - "80"
     volumes:
       # - /config:/usr/share/nginx/html:ro
-      - /config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
     environment:
       - VIRTUAL_HOST=ecotria.com,www.ecotria.com
       - LETSENCRYPT_HOST=ecotria.com,www.ecotria.com
