@@ -29,18 +29,26 @@ services:
   www:
     image: nginx
     restart: unless-stopped
+    # ports:
+    #   - "80:80"
+    #   - "443:443"
     expose:
       - "80"
     volumes:
       # - /config:/usr/share/nginx/html:ro
-      - ./config/default.conf:/etc/nginx/default.conf:ro
+      - ./config/nginxconfig.io:/etc/nginx/nginxconfig.io
+      - ./config/sites-available:/etc/nginx/sites-available
+      - ./config/sites-enabled:/etc/nginx/sites-enabled
+      - ./config/nginx.conf:/etc/nginx/nginx.conf
+      - ./config/default.conf:/etc/nginx/default.conf
     environment:
       - VIRTUAL_HOST=ecotria.com,www.ecotria.com
       - LETSENCRYPT_HOST=ecotria.com,www.ecotria.com
       - LETSENCRYPT_EMAIL=admin@ecotria.com
-    depends_on:
-      - nginx-proxy
-      - letsencrypt
+    # depends_on:
+    #   - nginx-proxy
+    #   - letsencrypt
+    #command: cat /etc/nginx/conf.d/default.conf
   app:
     container_name: ecotria_client
     build:
@@ -48,7 +56,6 @@ services:
       dockerfile: DockerFile
     restart: unless-stopped
     depends_on:
-      - nginx-proxy
       - www
     environment:
       - ./.env
