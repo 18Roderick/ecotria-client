@@ -14,7 +14,6 @@ services:
     ports:
       - 3000:3000
     command: "http-server ./dist -p 3000"
-volumes:
 # networks:
 #   ecotria-net:
 #     driver: bridge
