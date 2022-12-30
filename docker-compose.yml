@@ -53,10 +53,10 @@ services:
     volumes:
       - ./:/app/
     ports:
-      - 3000:3000
+      - 3000:80
     # expose:
     #   - 3000
-    command: "http-server ./dist -p 3000"
+    #command: "http-server ./dist -p 3000"
 volumes:
   certs:
   html:
