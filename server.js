@@ -17,7 +17,8 @@ app.use(express.static(buildPath));
 // Handle client routing, return all requests to the app
 app.get("*", (_req, res, next) => {
   try {
-    res.sendFile(path.join(__dirname, path.normalize("dist/index.html")));
+    res.send("Site Under construction");
+    //res.sendFile(path.join(__dirname, path.normalize("dist/index.html")));
   } catch (error) {
     next(error);
   }
