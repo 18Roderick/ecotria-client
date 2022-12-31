@@ -8,7 +8,12 @@ app.use(express.static("dist/"));
 
 // Handle client routing, return all requests to the app
 app.get("*", (_req, res) => {
-  res.sendFile(path.join(__dirname, "dist/index.html"));
+  res.sendFile(path.join(__dirname, path.normalize("dist/index.html")));
+});
+
+app.use((error, req, res) => {
+  console.error(error);
+  res.status(500).send({ error: "Error Contact Admin" });
 });
 
 app.listen(PORT, () => {
