@@ -1,18 +1,30 @@
 const path = require("path");
+const fs = require("fs");
 const express = require("express");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static("dist/"));
+const buildPath = path.join(__dirname, "dist/");
+
+//si la carpeta no existe para ejecución
+if (!fs.existsSync(buildPath)) {
+  throw new Error("Build the project first");
+}
+
+app.use(express.static(buildPath));
 
 // Handle client routing, return all requests to the app
-app.get("*", (_req, res) => {
-  res.sendFile(path.join(__dirname, path.normalize("dist/index.html")));
+app.get("*", (_req, res, next) => {
+  try {
+    res.sendFile(path.join(__dirname, path.normalize("dist/index.html")));
+  } catch (error) {
+    next(error);
+  }
 });
 
 app.use((error, req, res) => {
-  console.error(error);
+  console.error("Erro del server ", error);
   res.status(500).send({ error: "Error Contact Admin" });
 });
 
