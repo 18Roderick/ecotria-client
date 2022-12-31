@@ -12,7 +12,7 @@ if (!fs.existsSync(buildPath)) {
   throw new Error("Build the project first");
 }
 
-app.use(express.static(buildPath));
+//app.use(express.static(buildPath));
 
 // Handle client routing, return all requests to the app
 app.get("*", (_req, res, next) => {
