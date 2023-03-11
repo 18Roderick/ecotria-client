@@ -12,12 +12,14 @@ const UserProducts = lazy(() => import("../../pages/user/Products"));
 
 const EcotriaRoutes = () => {
   return (
-    <Suspense fallback={<Load />}>
-      <BrowserRouter>
-        <AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <Suspense fallback={<Load />}>
           <Routes>
-            <Route path="/" element={<Home />}>
-              <Route index element={<Home />} />
+            <Route path="/">
+              <PrivateRoute>
+                <Route index element={<Home />} />
+              </PrivateRoute>
             </Route>
             <Route path="products" element={<div> Products </div>} />
             <Route path="auth">
@@ -37,10 +39,10 @@ const EcotriaRoutes = () => {
             ></Route>
             <Route path="*" element={<div>404</div>} />
           </Routes>
-        </AuthProvider>
-        <Outlet></Outlet>
-      </BrowserRouter>
-    </Suspense>
+        </Suspense>
+      </AuthProvider>
+      <Outlet></Outlet>
+    </BrowserRouter>
   );
 };
 

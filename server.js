@@ -1,6 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const express = require("express");
+const helmet = require("helmet");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,7 +13,7 @@ if (!fs.existsSync(buildPath)) {
   throw new Error("Build the project first");
 }
 
-//app.use(express.static(buildPath));
+app.use(helmet());
 
 // Handle client routing, return all requests to the app
 app.get("*", (_req, res, next) => {
