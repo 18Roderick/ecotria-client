@@ -8,6 +8,7 @@ specifiers:
   '@hookform/resolvers': ^2.9.11
   '@tanstack/react-query': ^4.26.1
   '@tanstack/react-query-devtools': ^4.26.1
+  '@tanstack/react-table': ^8.7.9
   '@types/react': ^18.0.28
   '@types/react-dom': ^18.0.11
   '@types/react-infinite-scroller': ^1.2.3
@@ -33,6 +34,7 @@ specifiers:
   react-dom: ^18.2.0
   react-dropzone: ^14.2.3
   react-hook-form: ^7.43.5
+  react-icons: ^4.8.0
   react-image-lightbox: ^5.1.4
   react-infinite-scroller: ^1.2.6
   react-router-dom: ^6.9.0
@@ -50,6 +52,7 @@ dependencies:
   '@hookform/resolvers': 2.9.11_react-hook-form@7.43.5
   '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-query-devtools': 4.26.1_brdhmlf72zuns3lsk66phyptty
+  '@tanstack/react-table': 8.7.9_biqbaboplfbrettd7655fr4n2y
   apexcharts: 3.37.1
   axios: 0.27.2
   bootstrap: 5.2.3_@popperjs+core@2.11.6
@@ -64,6 +67,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-dropzone: 14.2.3_react@18.2.0
   react-hook-form: 7.43.5_react@18.2.0
+  react-icons: 4.8.0_react@18.2.0
   react-image-lightbox: 5.1.4_biqbaboplfbrettd7655fr4n2y
   react-infinite-scroller: 1.2.6_react@18.2.0
   react-router-dom: 6.9.0_biqbaboplfbrettd7655fr4n2y
@@ -635,6 +639,23 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
+    dev: false
+
+  /@tanstack/react-table/8.7.9_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-6MbbQn5AupSOkek1+6IYu+1yZNthAKTRZw9tW92Vi6++iRrD1GbI3lKTjJalf8lEEKOqapPzQPE20nywu0PjCA==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      '@tanstack/table-core': 8.7.9
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@tanstack/table-core/8.7.9:
+    resolution: {integrity: sha512-4RkayPMV1oS2SKDXfQbFoct1w5k+pvGpmX18tCXMofK/VDRdA2hhxfsQlMvsJ4oTX8b0CI4Y3GDKn5T425jBCw==}
+    engines: {node: '>=12'}
     dev: false
 
   /@types/json5/0.0.29:
@@ -2804,6 +2825,14 @@ packages:
     engines: {node: '>=12.22.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /react-icons/4.8.0_react@18.2.0:
+    resolution: {integrity: sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg==}
+    peerDependencies:
+      react: '*'
     dependencies:
       react: 18.2.0
     dev: false

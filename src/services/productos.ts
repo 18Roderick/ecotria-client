@@ -9,7 +9,7 @@ interface ProductsByPageType {
 
 export const getProductsByPage = async ({ token, page = 0, postsLimit = 10, signal }: ProductsByPageType) => {
   const response = await axios.post(
-    "/post_list_all",
+    "/post_pagination",
     {
       currentPage: page,
       postsLimit,

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import { removeSessionToken, getSessionToken, setSessionToken, isTokenExpired } from "../utils";
@@ -34,12 +34,12 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
     }
   };
 
-  const logOut = () => {
+  const logOut = useCallback(() => {
     removeSessionToken();
     setUser(null);
     setToken(null);
     setAuth(false);
-  };
+  }, []);
 
   const value = {
     token: token,
@@ -52,7 +52,7 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-export const useAuth = () => {
+export const useAuth = (): AuthContextType => {
   const context = React.useContext<AuthContextType>(AuthContext);
   if (context.token && isTokenExpired(context.token)) {
     context.logOut();

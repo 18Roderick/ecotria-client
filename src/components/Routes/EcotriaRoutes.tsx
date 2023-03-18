@@ -6,6 +6,7 @@ import ProtectedLayout from "../Layouts/ProtectedLayout";
 import PerfilPageSettings from "../../pages/user/PerfilSettings";
 
 import { AuthProvider, PrivateRoute } from "../../context/ContextAuth";
+
 import PageNotFound from "../../pages/PageNotFound";
 import PerfilInformacion from "../../pages/user/PerfilInformacion";
 import Productos from "../../pages/Productos";
@@ -50,37 +51,51 @@ const EcotriaRoutes = () => {
               index
               path="perfil"
               element={
-                <ProtectedLayout>
+                <PrivateRoute>
                   <Suspense fallback={<Load />}>
                     <PerfilPageSettings />
                   </Suspense>
-                </ProtectedLayout>
+                </PrivateRoute>
               }
             />
             <Route
               path="informacion"
               element={
-                <ProtectedLayout>
+                <PrivateRoute>
                   <Suspense fallback={<Load />}>
                     <PerfilInformacion />
                   </Suspense>
-                </ProtectedLayout>
+                </PrivateRoute>
               }
             />
             <Route
               path="productos"
               element={
-                <ProtectedLayout>
+                <PrivateRoute>
                   <Suspense fallback={<Load />}>
                     <UserProducts />
                   </Suspense>
-                </ProtectedLayout>
+                </PrivateRoute>
               }
             />
           </Route>
           <Route path="auth">
-            <Route path="login" element={<Auth />} />
-            <Route path="register" element={<SignUpPage />} />
+            <Route
+              path="login"
+              element={
+                <Suspense fallback={<Load />}>
+                  <Auth />
+                </Suspense>
+              }
+            />
+            <Route
+              path="register"
+              element={
+                <Suspense fallback={<Load />}>
+                  <SignUpPage />
+                </Suspense>
+              }
+            />
           </Route>
           <Route
             path="admin"

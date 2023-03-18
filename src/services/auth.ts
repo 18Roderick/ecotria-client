@@ -1,9 +1,17 @@
+import { SignInType, SignUpType } from "../types/auth.types";
 import axios from "./axios";
 
+export interface SigninSucces {
+  data: Data;
+  message: string;
+  token: string;
+}
 
-interface SignInType {
+export interface Data {
+  nombre: string;
+  apellido: string;
   correo: string;
-  contrasena: string;
+  _id: string;
 }
 
 export const signIn = async ({ correo, contrasena }: SignInType) => {
@@ -14,19 +22,11 @@ export const signIn = async ({ correo, contrasena }: SignInType) => {
       throw new Error(response.data.error);
     }
 
-    return response.data;
+    return response.data as SigninSucces;
   } catch (e: any) {
     throw new Error(e.response?.data?.error || e.message);
   }
 };
-
-
-interface SignUpType {
-  correo: string;
-  contrasena: string;
-  nombre: string;
-  apellido: string;
-}
 
 export const signUp = async (bodyDto: SignUpType) => {
   try {

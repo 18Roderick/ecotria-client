@@ -1,33 +1,45 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useState } from "react";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 import { useAuth } from "../../context/ContextAuth";
 import api from "../../services";
+import DragDropFile from "../DragDropFile";
 
-const defaultData = {
-  nombre: "",
-  apellido: "",
-  photoProfile: "",
-  correo: "",
-};
+interface UserProps {
+  id: string;
+  nombre: string;
+  apellido: string;
+  photoProfile?: string;
+  correo: string;
+}
 
-const FormularioUsuario = ({
+interface FormularioProps {
+  user: UserProps;
+  edit: boolean;
+  toggleEdit: () => void;
+}
+
+const FormularioUsuario: React.FC<FormularioProps> = ({
   edit = false,
   toggleEdit = () => {},
-  user: { nombre, apellido, photoProfile, correo } = defaultData,
+  user: { nombre, apellido, photoProfile, correo, id },
 }) => {
   const query = useQueryClient();
-  const { token } = useAuth();
-  const { mutate, reset } = useMutation(api.user.updateUserInfo, {});
+  const { token, user } = useAuth();
+  const { mutate, reset, isLoading } = useMutation(api.user.updateUserInfo, {
+    onSuccess: (data) => {
+      toggleEdit();
+    },
+  });
 
   const [animationParent] = useAutoAnimate<HTMLDivElement>();
 
-  const [cacheInfo, setCache] = useState({ nombre, apellido, photoProfile });
+  const [cacheInfo, setCache] = useState<UserProps>({ nombre, apellido, photoProfile, correo, id });
 
   const handleSubmit = (e: React.SyntheticEvent) => {
-    mutate({ token, data: cacheInfo });
+    mutate({ token: String(token), data: cacheInfo });
     e.preventDefault();
   };
 
@@ -38,11 +50,23 @@ const FormularioUsuario = ({
 
   const resetForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    setCache({ nombre, apellido, photoProfile });
+    setCache({ nombre, apellido, photoProfile, correo, id });
     query.invalidateQueries(["userInfo"]);
     toggleEdit();
     reset();
   };
+
+  const onDropMain = useCallback((files: File[]) => {
+    const asyncWrapper = async () => {
+      try {
+        console.log(files);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    asyncWrapper();
+  }, []);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -95,33 +119,16 @@ const FormularioUsuario = ({
       </div>
 
       <div className="row" ref={animationParent}>
-        {edit ? (
-          <div className="col-lg-12 mb-3">
-            <div className="card mt-3 border-0">
-              <div className="card-body d-flex justify-content-between align-items-end p-0">
-                <div className="form-group mb-0 w-100">
-                  <input type="file" name="file" id="file" className="input-file" disabled={!edit} />
-                  <label
-                    htmlFor="file"
-                    className="rounded-3 text-center bg-white btn-tertiary js-labelFile p-4 w-100 border-dashed"
-                  >
-                    <i className="ti-cloud-down large-icon me-3 d-block"></i>
-                    <span className="js-fileName">Drag and drop or click to replace</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : null}
+        {edit ? <DragDropFile onDropEvent={onDropMain} /> : null}
 
         <div className="col-lg-12 justify-content-between">
           <div className="d-flex justify-content-between">
             {edit ? (
               <>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary" disabled={isLoading}>
                   Guardar
                 </button>
-                <button className="btn btn-primary" onClick={resetForm}>
+                <button className="btn btn-primary" onClick={resetForm} disabled={isLoading}>
                   Cancelar
                 </button>
               </>

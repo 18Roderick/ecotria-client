@@ -1,22 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { FaUserAlt, FaHome, FaBox, FaShoppingBag, FaRegComment } from "react-icons/fa";
+
 const Appfooter = () => (
   <div className="app-footer border-0 shadow-lg bg-primary-gradiant">
     <Link to="/home" className="nav-content-bttn nav-center">
-      <i className="feather-home"></i>
+      <FaHome color="#fff" title="home" size={20} />
     </Link>
     <Link to="/defaultvideo" className="nav-content-bttn">
-      <i className="feather-package"></i>
+      <FaBox color="#fff" title="home" size={20} />
     </Link>
     <Link to="/defaultlive" className="nav-content-bttn" data-tab="chats">
-      <i className="feather-layout"></i>
+      <FaRegComment color="#fff" title="home" size={20} />
     </Link>
     <Link to="/shop2" className="nav-content-bttn">
-      <i className="feather-layers"></i>
+      <FaShoppingBag color="#fff" title="home" size={20} />
     </Link>
-    <Link to="/defaultsettings" className="nav-content-bttn">
-      <img src="assets/images/female-profile.png" alt="user" className="w30 shadow-xss" />
+    <Link to="/user/perfil" className="nav-content-bttn">
+      <FaUserAlt color="#fff" title="user" size={20} />
     </Link>
   </div>
 );

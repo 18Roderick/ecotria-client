@@ -9,6 +9,7 @@ import { getStorage, deleteItem, setStorage } from "../../utils";
 import { useAuth } from "../../context/ContextAuth";
 
 import api from "../../services";
+import { SignInType } from "../../types";
 
 const USER_EMAIL = "USER_EMAIL";
 const USER_PASS = "USER_PASS";
@@ -39,7 +40,8 @@ const SignIn = () => {
   const navigation = useNavigate();
   const { setAuth } = useAuth();
 
-  const { mutate, isError, reset, error, isLoading } = useMutation(api.auth.signIn, {
+  const { mutate, isError, reset, isLoading, error } = useMutation({
+    mutationFn: api.auth.signIn,
     onSuccess: (data) => {
       if (data?.token) {
         setAuth(data?.token as string);
@@ -47,6 +49,9 @@ const SignIn = () => {
         if (!remember) removeItems();
         navigation("/");
       }
+    },
+    onError: (error, variables, context) => {
+      return error as Error;
     },
   });
 

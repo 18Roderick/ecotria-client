@@ -1,14 +1,12 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
-import { ProductDetail } from "../../models/Product";
+import { ProductDetail } from "../../types";
 
 //formular para convertir el resultado a una base de 5
 const calcularPorcentaje = (parcial: number, total: number) => {
   const resultado = ((((parcial * 100) / total) * 5) / 100).toFixed(2);
   return Number.isNaN(resultado) ? null : resultado;
 };
-
-
 
 const ProductsCard: FC<{ product: ProductDetail }> = ({ product }) => {
   return (

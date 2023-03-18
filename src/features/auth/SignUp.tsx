@@ -18,7 +18,7 @@ import api from "../../services";
 const userSchema = yup.object({
   nombre: yup.string().required("Nombre es requerido"),
   apellido: yup.string().required("Apellido es requerido"),
-  email: yup.string().email().required("Correo electrónico Valido es requerido"),
+  correo: yup.string().email().required("Correo electrónico Valido es requerido"),
   contrasena: yup
     .string()
     .required("Contraseña es requerida")
@@ -97,7 +97,7 @@ const SignUp = () => {
               isInvalid={!!errors.apellido?.message}
             />
 
-            <Form.Control.Feedback  type={errors.apellido ? "invalid" : "valid"}>
+            <Form.Control.Feedback type={errors.apellido ? "invalid" : "valid"}>
               {errors.apellido?.message}
             </Form.Control.Feedback>
           </Form.Group>
@@ -108,12 +108,12 @@ const SignUp = () => {
             </Form.Label>
             <Form.Control
               type="email"
-              {...register("email", { required: true, maxLength: 150 })}
-              isInvalid={!!errors.email?.message}
+              {...register("correo", { required: true, maxLength: 150 })}
+              isInvalid={!!errors.correo?.message}
             />
 
-            <Form.Control.Feedback type={errors.email ? "invalid" : "valid"}>
-              {errors.email?.message}
+            <Form.Control.Feedback type={errors.correo ? "invalid" : "valid"}>
+              {errors.correo?.message}
             </Form.Control.Feedback>
           </Form.Group>
 

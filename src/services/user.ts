@@ -1,3 +1,4 @@
+import { User } from "../types";
 import axios from "./axios";
 
 interface DefaultTypes {
@@ -7,7 +8,7 @@ interface DefaultTypes {
 
 export const getUserInfo = async ({ token, signal }: DefaultTypes) => {
   try {
-    const response = await axios.get("/user-view-info", {
+    const response = await axios.get<User>("/user-view-info", {
       signal,
       headers: {
         Authorization: token,
@@ -20,9 +21,10 @@ export const getUserInfo = async ({ token, signal }: DefaultTypes) => {
 };
 
 interface UpdateUserInfoType {
+  id: string;
   nombre: string;
   apellido: string;
-  photoProfile: string;
+  photoProfile?: string;
   correo: string;
 }
 
@@ -36,7 +38,7 @@ export const updateUserInfo = async ({
   signal?: AbortSignal;
 }) => {
   try {
-    const response = await axios.put("/user-view-info", data, {
+    const response = await axios.put(`user-update/${data.id}`, data, {
       signal,
       headers: {
         Authorization: token,
