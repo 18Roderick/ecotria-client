@@ -27,7 +27,7 @@ const EcotriaRoutes = () => {
               <Route path="register" element={<SignUpPage />} />
             </Route>
             <Route path="user" element={<Home />}>
-              <Route path="productos" element={<UserProducts />} />
+              <Route path="products" element={<UserProducts />} />
             </Route>
             <Route
               path="admin"

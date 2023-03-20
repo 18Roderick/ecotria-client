@@ -17,6 +17,8 @@ const Auth = lazy(() => import("../../pages/Auth.page"));
 const SignUpPage = lazy(() => import("../../pages/SignUp.page"));
 const UserProducts = lazy(() => import("../../pages/user/UserProducts"));
 
+const EditCreateProduct = lazy(() => import("../../pages/product/Edit"));
+
 const EcotriaRoutes = () => {
   return (
     <BrowserRouter>
@@ -34,13 +36,24 @@ const EcotriaRoutes = () => {
           >
             <Route index element={<Home />} />
           </Route>
-          <Route path="productos">
+          <Route path="products">
             <Route
               index
               element={
                 <ProtectedLayout>
                   <Suspense fallback={<Load />}>
                     <Productos />
+                  </Suspense>
+                </ProtectedLayout>
+              }
+            />
+
+            <Route
+              path="edit"
+              element={
+                <ProtectedLayout>
+                  <Suspense fallback={<Load />}>
+                    <EditCreateProduct />
                   </Suspense>
                 </ProtectedLayout>
               }

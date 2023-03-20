@@ -12,7 +12,7 @@ const routes: RoutesType[] = [
   },
   {
     name: "Productos",
-    path: "/productos",
+    path: "/products",
   },
 ];
 

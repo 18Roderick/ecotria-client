@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Layout from "../../components/Layouts/Layout";
+import TableProduct from "../../components/Tables/Productos";
 import { products } from "../../fake";
 
 const UserProducts = () => {
@@ -10,7 +11,9 @@ const UserProducts = () => {
           <div className="middle-sidebar-left pe-0 ps-lg-3 ms-0 me-0" style={{ maxWidth: "100%" }}>
             <div className="row">
               <div className="col-lg-12">
-                <div className="chat-wrapper p-3 w-100 position-relative scroll-bar bg-white theme-dark-bg"></div>
+                <div className="chat-wrapper p-3 w-100 position-relative scroll-bar bg-white theme-dark-bg">
+                  <TableProduct />
+                </div>
               </div>
             </div>
           </div>
