@@ -51,11 +51,11 @@ const EcotriaRoutes = () => {
             <Route
               path="edit"
               element={
-                <ProtectedLayout>
+                <PrivateRoute>
                   <Suspense fallback={<Load />}>
                     <EditCreateProduct />
                   </Suspense>
-                </ProtectedLayout>
+                </PrivateRoute>
               }
             />
           </Route>

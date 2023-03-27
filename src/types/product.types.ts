@@ -13,3 +13,18 @@ export interface ProductDetail {
   claps: number;
   no_claps: number;
 }
+
+export interface ProductInsert {
+  rubroPost?: string;
+  categoryPost: string;
+  subCategoryPost: string;
+  titlePost: string;
+  price: number;
+  descriptionPost: string;
+  address: string;
+  phoneNumber: string;
+}
+
+export interface ProductUpdateImage {
+  Images: string[] | string;
+}

@@ -44,11 +44,6 @@ export default function Table() {
 
   return (
     <div className="p-2 shadow-md p-4  border-2">
-      <div className="d-flex flex-row-reverse">
-        <div className="">
-          <button className="btn btn-primary">Crear</button>
-        </div>
-      </div>
       <table className="table ">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (

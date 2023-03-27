@@ -1,3 +1,4 @@
+import { ProductInsert } from "../types";
 import axios from "./axios";
 
 interface ProductsByPageType {
@@ -21,5 +22,21 @@ export const getProductsByPage = async ({ token, page = 0, postsLimit = 10, sign
       },
     }
   );
+  return response.data;
+};
+
+interface Create extends ProductInsert {
+  signal?: AbortSignal;
+  token: string;
+}
+
+export const createProduct = async ({ signal, token, ...body }: Create) => {
+  const response = await axios.post("/post_create", body, {
+    signal,
+    headers: {
+      Authorization: token,
+    },
+  });
+
   return response.data;
 };

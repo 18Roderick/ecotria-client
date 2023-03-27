@@ -11,31 +11,9 @@ import { useAuth } from "../../context/ContextAuth";
 import api from "../../services";
 import { SignInType } from "../../types";
 
-const USER_EMAIL = "USER_EMAIL";
-const USER_PASS = "USER_PASS";
-
-const getItems = () => {
-  return {
-    email: getStorage(USER_EMAIL) || "",
-    password: getStorage(USER_PASS) || "",
-    isSave: getStorage(USER_EMAIL) && getStorage(USER_PASS) ? true : false,
-  };
-};
-
-const removeItems = () => {
-  deleteItem(USER_EMAIL);
-  deleteItem(USER_PASS);
-};
-
-const saveItems = (email: string, password: string) => {
-  setStorage(USER_EMAIL, email);
-  setStorage(USER_PASS, password);
-};
-
 const SignIn = () => {
-  const [email, setEmail] = useState(getItems().email);
-  const [password, setPassword] = useState(getItems().password);
-  const [remember, setRememberMe] = useState(getItems().isSave);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigation = useNavigate();
   const { setAuth } = useAuth();
@@ -45,8 +23,6 @@ const SignIn = () => {
     onSuccess: (data) => {
       if (data?.token) {
         setAuth(data?.token as string);
-        if (remember) saveItems(email, password);
-        if (!remember) removeItems();
         navigation("/");
       }
     },
@@ -90,7 +66,7 @@ const SignIn = () => {
         <i className="font-sm ti-lock text-grey-500 pe-0"></i>
       </div>
       <div className="form-check text-left mb-3">
-        <label className="form-check-label font-xsss text-grey-500" htmlFor="rememberme">
+        {/* <label className="form-check-label font-xsss text-grey-500" htmlFor="rememberme">
           <input
             type="checkbox"
             className="form-check-input mt-2"
@@ -99,7 +75,7 @@ const SignIn = () => {
             onChange={() => setRememberMe(!remember)}
           />
           Recordarme
-        </label>
+        </label> */}
         <a href="/forgot" className="fw-600 font-xsss text-grey-700 mt-1 float-right">
           Olvidaste tu contraseña?
         </a>
